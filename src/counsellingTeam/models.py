@@ -2,6 +2,7 @@ from django.db import models
 import datetime
 from ckeditor_uploader.fields import RichTextUploadingField
 
+
 class Team(models.Model):
     TEAM_CHOICES = (
         ('UG', 'UG'),
