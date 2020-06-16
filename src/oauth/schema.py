@@ -31,7 +31,7 @@ class UserProfileNode(DjangoObjectType):
         fields = (
             'id', 'user', 'email_confirmed', 'gender', 'roll', 'dob', 'prog', 'year', 'phone', 'hometown', 'branch',
             'skills',
-            'about')
+            'about', 'student_guide')
         interfaces = (relay.Node,)
 
     def resolve_cover(self, info):
@@ -48,3 +48,6 @@ class UserProfileNode(DjangoObjectType):
     @classmethod
     def search(cls, query, info):
         return cls._meta.model.objects.search(query)
+
+    def searchforsg(id, info):
+        return UserProfile.objects.filter(student_guide_id=id)

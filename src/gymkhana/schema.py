@@ -47,19 +47,23 @@ class PrivateQuery(KonnektQuery, PublicQuery):
     viewer = graphene.Field(UserNode)
     search = graphene.ConnectionField(
         SearchResultConnection,
-        query=graphene.String(description='Value to search for', required=True),
+        query=graphene.String(description='Value to search for', required=False),
+        sg=graphene.Int(required=False),
         node_type=NodeType(required=True)
     )
 
     def resolve_viewer(self, info, *args):
         return UserNode.get_node(info, id=info.context.user.id)
 
-    def resolve_search(self, info, query=None, node_type=None, first=None, last=None, before=None, after=None):
+    def resolve_search(self, info, query=None, sg=None, node_type=None, first=None, last=None, before=None, after=None):
         # TODO: Add logic to paginate search based on first, last, before and after params
         if node_type == UserProfileNode:
             if first:
                 return UserProfileNode.search(query, info)[:first]
-            return UserProfileNode.search(query, info)
+            if sg:
+                return UserProfileNode.searchforsg(sg, info)
+            if query:
+                return UserProfileNode.search(query, info)
         return []
 
 

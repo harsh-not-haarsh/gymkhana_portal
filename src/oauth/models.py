@@ -112,6 +112,7 @@ class UserProfile(models.Model):
     skills = models.TextField(help_text="Enter your skills, separated by comma.", max_length=1024, blank=True,
                               null=True, default=None)
     about = models.TextField(max_length=160, verbose_name='about you', blank=True, null=True)
+    student_guide = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
 
     class Meta:
         ordering = ["roll"]
