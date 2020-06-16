@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Team(models.Model):
@@ -17,3 +18,17 @@ class Team(models.Model):
 
     def __str__(self):
         return self.team_type + self.year
+
+
+class CsFaq(models.Model):
+
+    CATEGORY_CHOICES = (
+        ('General', 'General'),
+        ('Academics', 'Academics'),
+        ('Registration', 'Registration'),
+        ('Hostel/Mess', 'Hostel/Mess'),
+        ('Misc', 'Misc'),
+    )
+    category = models.CharField(max_length=15, choices=CATEGORY_CHOICES)
+    question = models.TextField()
+    answer = RichTextUploadingField(blank=True, null=True)
