@@ -1,7 +1,7 @@
 from graphene import relay
 from graphene_django import DjangoObjectType
 
-from .models import Team,CsFaq
+from .models import Team, CsFaq
 from oauth.schema import UserProfileNode
 
 
