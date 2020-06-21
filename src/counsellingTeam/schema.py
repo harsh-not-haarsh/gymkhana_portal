@@ -30,7 +30,7 @@ class FamilyTreeNode(DjangoObjectType):
     id = graphene.ID(required=True)
 
     def resolve_mentees(self, info):
-        id=self.student_id
+        id = self.student_id
         user = UserProfile.objects.get(id=id)
         return user.mentees.all()
 
