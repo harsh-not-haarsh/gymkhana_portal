@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 from ckeditor_uploader.fields import RichTextUploadingField
+from oauth.models import UserProfile
 
 
 class Team(models.Model):
@@ -21,7 +22,6 @@ class Team(models.Model):
 
 
 class CsFaq(models.Model):
-
     CATEGORY_CHOICES = (
         ('General', 'General'),
         ('Academics', 'Academics'),
@@ -32,3 +32,14 @@ class CsFaq(models.Model):
     category = models.CharField(max_length=15, choices=CATEGORY_CHOICES)
     question = models.TextField()
     answer = RichTextUploadingField(blank=True, null=True)
+
+
+USER = 1
+
+
+class FamilyTree(models.Model):
+    student = models.OneToOneField(UserProfile, on_delete=models.CASCADE, default=USER)
+    student_guide = models.ForeignKey(UserProfile, related_name="mentees", on_delete=models.SET_DEFAULT, default=USER)
+
+    def __str__(self):
+        return self.student.roll
