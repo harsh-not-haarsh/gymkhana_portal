@@ -1,7 +1,7 @@
 from graphene import relay
 from graphene_django import DjangoObjectType
 
-from .models import Team
+from .models import Team, CsFaq
 from oauth.schema import UserProfileNode
 
 
@@ -16,3 +16,12 @@ class CounsellingTeamNode(DjangoObjectType):
     student_heads = UserProfileNode()
     student_assistant_heads = UserProfileNode()
     student_guides = UserProfileNode()
+
+
+class FaqNode(DjangoObjectType):
+
+    class Meta:
+        model = CsFaq
+        filter_fields = ['category']
+        fields = ('__all__')
+        interfaces = (relay.Node,)
