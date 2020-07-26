@@ -11,7 +11,7 @@ from konnekt.schema import Query as KonnektQuery
 from oauth.models import UserProfile
 from oauth.schema import UserProfileNode, UserNode
 from main.schema import SocietyNode, ClubNode, GalleryNode
-from counsellingTeam.schema import CounsellingTeamNode, FamilyTreeNode
+from counsellingTeam.schema import CounsellingTeamNode, FaqNode, FamilyTreeNode
 
 
 class SearchResult(graphene.Union):
@@ -34,6 +34,7 @@ class PublicQuery(graphene.ObjectType):
     clubs = DjangoFilterConnectionField(ClubNode)
     festivals = DjangoConnectionField(FestivalNode)
     counsellingTeam = DjangoFilterConnectionField(CounsellingTeamNode)
+    faq = DjangoFilterConnectionField(FaqNode)
     students = DjangoFilterConnectionField(FamilyTreeNode)
     home_carousel = graphene.Field(GalleryNode)
     home_gallery = graphene.Field(GalleryNode)
