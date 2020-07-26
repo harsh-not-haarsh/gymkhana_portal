@@ -8,7 +8,6 @@ from graphene_django.views import GraphQLView
 from photologue.models import Gallery
 from festivals.schema import FestivalNode
 from konnekt.schema import Query as KonnektQuery
-from oauth.models import UserProfile
 from oauth.schema import UserProfileNode, UserNode
 from main.schema import SocietyNode, ClubNode, GalleryNode
 from counsellingTeam.schema import CounsellingTeamNode, FaqNode, FamilyTreeNode
@@ -44,11 +43,6 @@ class PublicQuery(graphene.ObjectType):
 
     def resolve_home_gallery(self, info, *args):
         return Gallery.objects.filter(slug=settings.HOME_PAGE_GALLERY_SLUG).first()
-
-    def resolve_students(self, info, **kwargs):
-        id = kwargs.get('id')
-        sg = UserProfile.objects.get(id=id)
-        return sg.mentees.all()
 
 
 class PrivateQuery(KonnektQuery, PublicQuery):

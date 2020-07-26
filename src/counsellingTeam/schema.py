@@ -1,5 +1,4 @@
 from graphene import relay
-import graphene
 from graphene_django import DjangoObjectType
 
 from .models import Team, CsFaq, FamilyTree
@@ -31,19 +30,16 @@ class FaqNode(DjangoObjectType):
 
 
 class FamilyTreeNode(DjangoObjectType):
+
     class Meta:
         model = FamilyTree
-        filter_fields = ['id']
+        filter_fields = ['student__roll']
         fields = ('__all__')
         interfaces = (relay.Node,)
 
     mentees = DjangoConnectionField('counsellingTeam.schema.FamilyTreeNode')
-    id = graphene.ID(required=True)
 
     def resolve_mentees(self, info):
         id = self.student_id
         user = UserProfile.objects.get(id=id)
         return user.mentees.all()
-
-    def resolve_id(self, info):
-        return self.student_id

@@ -8,6 +8,7 @@ from fixture.senatemembershipfixture import MemberWithSenateFactory
 from fixture.answerfixture import AnswerFactory
 from fixture.topicfixture import TopicFactory
 from fixture.clubfixture import ClubFactory
+from fixture.familytreefixture import FamilyTreeFactory
 import random
 from main.models import UserProfile
 from django.db.utils import IntegrityError
@@ -32,6 +33,7 @@ class Command(BaseCommand):
         self.create_objects(ContactFactory)
         self.create_objects(AnswerFactory, 20, m2m=True)
         self.create_objects(TopicFactory, 5, m2m=True)
+        self.create_objects(FamilyTreeFactory, 30)
 
     @staticmethod
     def create_objects(klass=None, object_count=5, m2m=False):
